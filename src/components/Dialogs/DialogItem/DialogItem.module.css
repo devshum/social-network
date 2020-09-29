@@ -1,0 +1,9 @@
+.dialog {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dialog a { color: #000; text-decoration: none; }
+
+.dialog:not(:last-child) { margin-bottom: 20px; }

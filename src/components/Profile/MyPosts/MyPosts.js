@@ -10,12 +10,12 @@ const MyPosts = props => {
   const textAreaLink = React.createRef();
 
   const addPost = () => {
-    props.addPost();
+    props.dispatch( { type : 'ADD-POST'} );
   };
 
   let onPostChange = () => {
     const text = textAreaLink.current.value;
-    props.updateNewPostText(text);
+    props.updateNewPostText({ type: 'UPDATE-NEW-POST-TEXT', newText: text });
   }
 
   return (

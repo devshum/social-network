@@ -30,26 +30,24 @@ const store = {
       newPostText: 'it-kamasutra'
     }
   },
-
-  getState() { return this._state; },
-
   _rerenderEntireTree() { console.log('state has been changed') },
 
-  addPost() {
-    const newPost = {id: 3, post: this._state.profilePage.newPostText, likeCount: 0};
+  getState() { return this._state; },
+  observer(observer) { this._rerenderEntireTree = observer },
+
+  dispatch(action) {
+    if(action.type === 'ADD-POST') {
+      const newPost = {id: 3, post: this._state.profilePage.newPostText, likeCount: 0};
   
-    this._state.profilePage.postsData.push(newPost);
-    this._state.profilePage.newPostText = '';
-    this._rerenderEntireTree(this._state);
-  },
+      this._state.profilePage.postsData.push(newPost);
+      this._state.profilePage.newPostText = '';
+      this._rerenderEntireTree(this._state);
 
-  updateNewPostText(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._rerenderEntireTree(this._state);
-  },
-
-  observer(observer) { this._rerenderEntireTree = observer }
-
+    } else if(action.type = "UPDATE-NEW-POST-TEXT") {
+      this._state.profilePage.newPostText = action.newText;
+      this._rerenderEntireTree(this._state);
+    };
+  }
 }
 
 window.store = store;

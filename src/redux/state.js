@@ -1,6 +1,5 @@
-let rerenderEntireTree = () => console.log('state has been changed');
-
-const state = {
+const store = {
+  _state: {
     dialogsPage: {
       dialogsData: [ { id: 1, name: 'Vlad' },
                    { id: 2, name: 'Dima' },
@@ -30,24 +29,29 @@ const state = {
 
       newPostText: 'it-kamasutra'
     }
-};
+  },
 
-window.state = state;
+  getState() { return this._state; },
 
-export const addPost = () => {
-  const newPost = {id: 3, post: state.profilePage.newPostText, likeCount: 0};
+  _rerenderEntireTree() { console.log('state has been changed') },
 
-  state.profilePage.postsData.push(newPost);
-  state.profilePage.newPostText = '';
-  rerenderEntireTree(state);
-};
+  addPost() {
+    const newPost = {id: 3, post: this._state.profilePage.newPostText, likeCount: 0};
+  
+    this._state.profilePage.postsData.push(newPost);
+    this._state.profilePage.newPostText = '';
+    this._rerenderEntireTree(this._state);
+  },
 
-export const updateNewPostText = newText => {
-  state.profilePage.newPostText = newText;
-  rerenderEntireTree(state);
-};
+  updateNewPostText(newText) {
+    this._state.profilePage.newPostText = newText;
+    this._rerenderEntireTree(this._state);
+  },
 
-export const observer = observer => rerenderEntireTree = observer;
+  observer(observer) { this._rerenderEntireTree = observer }
 
+}
 
-export default state;
+window.store = store;
+
+export default store;

@@ -1,7 +1,5 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
-const ADD_MESSAGE = 'ADD-MESSAGE';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
 
 const store = {
   _state: {
@@ -37,44 +35,19 @@ const store = {
       newPostText: 'it-kamasutra'
     }
   },
+
   _rerenderEntireTree() { console.log('state has been changed') },
 
   getState() { return this._state; },
   observer(observer) { this._rerenderEntireTree = observer },
 
   dispatch(action) {
-    if(action.type === ADD_POST) {
-      const newPost = {id: 3, post: this._state.profilePage.newPostText, likeCount: 0};
-  
-      this._state.profilePage.postsData.push(newPost);
-      this._state.profilePage.newPostText = '';
-      this._rerenderEntireTree(this._state);
+    this._state.profilePage = profileReducer(action, this._state.profilePage);
+    this._state.dialogsPage = dialogsReducer(action, this._state.dialogsPage);
 
-
-    } else if(action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profilePage.newPostText = action.newText;
-      this._rerenderEntireTree(this._state);
-
-    } else if(action.type === UPDATE_NEW_MESSAGE_TEXT) {
-      this._state.dialogsPage.newMessageText = action.newText;
-      this._rerenderEntireTree(this._state);
-
-    } else if(action.type === ADD_MESSAGE) {
-      const message =  { id: 6, message: this._state.dialogsPage.newMessageText }
-      this._state.dialogsPage.messagesData.push(message);
-      this._state.dialogsPage.newMessageText = '';
-      this._rerenderEntireTree(this._state);
-    };
+    this._rerenderEntireTree(this._state);
   }
 }
-
-export const addPostActionCreater = () => ({ type : ADD_POST });
-
-export const updateNewPostActionCreator = text => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
-
-export const updateNewMessageActionCreator = text => ({ type: UPDATE_NEW_MESSAGE_TEXT, newText: text });
-
-export const addMessageActionCreater = () => ({ type: ADD_MESSAGE });
 
 window.store = store;
 

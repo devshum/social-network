@@ -8,7 +8,7 @@ let Users = props => {
         props.setUsers( [
             { 
                 id: 1,
-                img: '', 
+                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg', 
                 fullName: 'Dmitry K',
                 location: {
                     city: 'Minsk',
@@ -20,7 +20,7 @@ let Users = props => {
     
             { 
                 id: 2,
-                img: '', 
+                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg',  
                 fullName: 'Vlad S',
                 location: {
                     city: 'Kiev',
@@ -32,7 +32,7 @@ let Users = props => {
     
             { 
                 id: 3,
-                img: '', 
+                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg', 
                 fullName: 'Sanya B',
                 location: {
                     city: 'Kiev',
@@ -44,7 +44,7 @@ let Users = props => {
     
             {   
                 id: 4,
-                img: '', 
+                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg', 
                 fullName: 'Denis M',
                 location: {
                     city: 'Kiev',
@@ -57,31 +57,35 @@ let Users = props => {
     };
 
     return (
-        <div>
-        {
-            props.users.map(user => <div key={user.id}>
-                <span>
-                    <div>
-                        <img src={user.photoUrl} className={styles.userPhoto} />
-                    </div>
-                    <div>
-                        <button onClick={() => props.toggleFollow(user.id)}>{user.followed ? 'Unfollow' : 'Follow'}</button>
+        <div className={styles.userPage}>
+            <h3>Users</h3>
+            {
+                props.users.map(user => <div key={user.id} className={styles.userLabel}>
+                        <div className={styles.user}>
+                            <img src={user.img} />
+                            
+                            <button className={ user.followed ? styles.followedBtn 
+                                                              : styles.unfollowedBtn } 
 
+                                    onClick={() => props.toggleFollow(user.id)}>{ user.followed ? 'Unfollow' 
+                                                                                                : 'Follow'}
+                            </button>
+                        </div>
+                        <div className={styles.userInfo}>
+                            <div>
+                                <div className={styles.userTextBold}>{user.fullName}</div>
+                                <div>{user.status}</div>
+                            </div>
+                            <div>
+                                <div className={styles.userTextBold}>{user.location.country}</div>
+                                <div className={styles.userTextBold}>{user.location.city}</div>
+                            </div>
+                        </div>
                     </div>
-                </span>
-                <span>
-                    <span>
-                        <div>{user.fullName}</div>
-                        <div>{user.status}</div>
-                    </span>
-                    <span>
-                        <div>{user.location.country}</div>
-                        <div>{user.location.city}</div>
-                    </span>
-                </span>
-            </div>)
-        };
-    </div> )
-};
+                )
+            }
+        </div>
+    )
+}
 
 export default Users;

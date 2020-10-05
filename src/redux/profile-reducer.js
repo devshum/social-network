@@ -17,10 +17,6 @@ const initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-    const newState = {
-      ...state,
-      postsData: [...state.postsData]
-    }
 
     switch(action.type) {
         case ADD_POST: {
@@ -31,7 +27,7 @@ const profileReducer = (state = initialState, action) => {
             newPostText: ''
           };
         }
-        
+
         case UPDATE_NEW_POST_TEXT: {
           return {
             ...state,

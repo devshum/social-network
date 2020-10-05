@@ -19,7 +19,7 @@ const Nav = () => (
             <NavLink to="/music" activeClassName={classes.active}>Music</NavLink>
           </li>
           <li>
-            <NavLink to="/settings" activeClassName={classes.active}>Settings</NavLink>
+            <NavLink to="/users" activeClassName={classes.active}>Users</NavLink>
           </li>
         </ul>
     </nav>

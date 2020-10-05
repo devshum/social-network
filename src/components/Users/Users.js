@@ -1,59 +1,17 @@
 
+import * as axios from 'axios';
 import React from 'react';
 import styles from './Users.module.css';
+import defaultAvatar from '../../assets/default-avatar.jpg';
 
 let Users = props => {
    
     if(props.users.length === 0) {
-        props.setUsers( [
-            { 
-                id: 1,
-                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg', 
-                fullName: 'Dmitry K',
-                location: {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                },
-                status: 'I am a boss',
-                followed: true
-            },
-    
-            { 
-                id: 2,
-                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg',  
-                fullName: 'Vlad S',
-                location: {
-                    city: 'Kiev',
-                    country: 'Ukraine'
-                },
-                status: 'I am a lazy guy',
-                followed: true
-            },
-    
-            { 
-                id: 3,
-                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg', 
-                fullName: 'Sanya B',
-                location: {
-                    city: 'Kiev',
-                    country: 'Ukraine'
-                },
-                status: 'I am a 3d artist',
-                followed: false
-            },
-    
-            {   
-                id: 4,
-                img: 'https://image.freepik.com/free-vector/young-man-cartoon-scribble-faceless_18591-25764.jpg', 
-                fullName: 'Denis M',
-                location: {
-                    city: 'Kiev',
-                    country: 'Ukraine'
-                },
-                status: 'I love smoking',
-                followed: false
-            }
-        ] );
+        axios
+         .get("https://social-network.samuraijs.com/api/1.0/users")
+         .then(response => {
+           props.setUsers(response.data.items);
+         });
     };
 
     return (
@@ -62,7 +20,7 @@ let Users = props => {
             {
                 props.users.map(user => <div key={user.id} className={styles.userLabel}>
                         <div className={styles.user}>
-                            <img src={user.img} />
+                            <img src={ user.photos.small !== null ? user.photos.small : defaultAvatar} />
                             
                             <button className={ user.followed ? styles.followedBtn 
                                                               : styles.unfollowedBtn } 
@@ -73,12 +31,12 @@ let Users = props => {
                         </div>
                         <div className={styles.userInfo}>
                             <div>
-                                <div className={styles.userTextBold}>{user.fullName}</div>
+                                <div className={styles.userTextBold}>{user.name}</div>
                                 <div>{user.status}</div>
                             </div>
                             <div>
-                                <div className={styles.userTextBold}>{user.location.country}</div>
-                                <div className={styles.userTextBold}>{user.location.city}</div>
+                                <div className={styles.userTextBold}>{'user.location.country'}</div>
+                                <div className={styles.userTextBold}>{'user.location.city'}</div>
                             </div>
                         </div>
                     </div>

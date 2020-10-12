@@ -5,18 +5,20 @@ import styles from './Users.module.css';
 import defaultAvatar from '../../assets/default-avatar.jpg';
 
 let Users = props => {
-   
-    if(props.users.length === 0) {
-        axios
-         .get("https://social-network.samuraijs.com/api/1.0/users")
-         .then(response => {
-           props.setUsers(response.data.items);
-         });
+    const getUsers = () => {
+        if(props.users.length === 0) {
+                axios
+                .get("https://social-network.samuraijs.com/api/1.0/users")
+                .then(response => {
+                props.setUsers(response.data.items);
+            });   
+        }
     };
-
+   
     return (
         <div className={styles.userPage}>
             <h3>Users</h3>
+            
             {
                 props.users.map(user => <div key={user.id} className={styles.userLabel}>
                         <div className={styles.user}>
@@ -42,6 +44,7 @@ let Users = props => {
                     </div>
                 )
             }
+            <button onClick={getUsers}>Get Users</button>
         </div>
     )
 }

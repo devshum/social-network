@@ -69,3 +69,7 @@
     color: #555555;
     font-weight: bold; 
 }
+
+.selectedPage {
+    font-weight: bold;
+}

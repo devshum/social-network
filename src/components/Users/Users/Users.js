@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Users.module.css';
+import { NavLink } from 'react-router-dom';
 import defaultAvatar from '../../../assets/default-avatar.jpg';
 
 
@@ -17,7 +18,9 @@ const Users = props => {
                 {
                     props.users.map(user => <div key={user.id} className={styles.userLabel}>
                             <div className={styles.user}>
-                                <img src={ user.photos.small !== null ? user.photos.small : defaultAvatar} />
+                                <NavLink to={`/profile/${user.id}`}>
+                                    <img src={ user.photos.small !== null ? user.photos.small : defaultAvatar} />
+                                </NavLink>
                                 
                                 <button className={ user.followed ? styles.followedBtn 
                                                                 : styles.unfollowedBtn } 

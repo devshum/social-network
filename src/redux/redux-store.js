@@ -13,4 +13,6 @@ const reducersBundle = combineReducers({
 
 const store = createStore(reducersBundle);
 
+window.store = store;
+
 export default store;

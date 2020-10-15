@@ -5,10 +5,10 @@ import Preloader from '../common/Preloader/Preloader';
 
 import {connect} from "react-redux";
 
-import { toggleFollowActionCreator,
-         setUsersActionCreator,
-         setCurrentPageActionCreator,
-         setTotalUsersCountActionCreator,
+import { toggleFollow,
+         setUsers,
+         setCurrentPage,
+         setTotalUsersCount,
          toggleIsFetching } from "../../redux/users-reducer";
 
 
@@ -57,12 +57,6 @@ let mapStateToProps = state => ({
     isFetching: state.usersPage.isFetching
 });
 
-let mapDispatchToProps = dispatch => ({
-    toggleFollow: userID => dispatch(toggleFollowActionCreator(userID)),
-    setUsers: users => dispatch(setUsersActionCreator(users)),
-    setCurrentPage: page => dispatch(setCurrentPageActionCreator(page)),
-    setTotalUsersCount: totalCount => dispatch(setTotalUsersCountActionCreator(totalCount)),
-    toggleIsFetching: () => dispatch(toggleIsFetching())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+export default connect(mapStateToProps, 
+    { toggleFollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching }
+)(UsersAPIComponent);

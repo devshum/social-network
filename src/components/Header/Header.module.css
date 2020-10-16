@@ -7,4 +7,16 @@
     background-color: cornflowerblue;
 }
 
+.headerInner { 
+    display: table;
+
+    width: 100%; 
+}
+
 .header img { height: 40px; }
+
+.loginBlock { 
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+}

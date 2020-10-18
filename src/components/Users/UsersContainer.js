@@ -10,7 +10,8 @@ import { follow,
          setUsers,
          setCurrentPage,
          setTotalUsersCount,
-         toggleIsFetching } from "../../redux/users-reducer";
+         toggleIsFetching,
+         toggleFollowInProgress } from "../../redux/users-reducer";
 
 import { usersAPI } from '../../api/api';
 
@@ -19,7 +20,7 @@ class UsersAPIComponent extends React.Component {
             this.props.toggleIsFetching()
 
             usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-                this.props.toggleIsFetching()
+                this.props.toggleIsFetching();
                 this.props.setUsers(data);
                 // this.props.setTotalUsersCount(response.data.totalCount);
             });  
@@ -27,7 +28,7 @@ class UsersAPIComponent extends React.Component {
         
         onPageChanged = page => {
             this.props.setCurrentPage(page);
-            this.props.toggleIsFetching()
+            this.props.toggleIsFetching();
             usersAPI.getUsers(page, this.props.pageSize).then(data => {
                 this.props.toggleIsFetching()
                 this.props.setUsers(data);
@@ -44,7 +45,9 @@ class UsersAPIComponent extends React.Component {
                    follow={this.props.follow} 
                    unfollow={this.props.unfollow} 
                    onPageChanged={this.onPageChanged} 
-                   getUsers={this.props.getUsers} />
+                   getUsers={this.props.getUsers} 
+                   toggleFollowInProgress={this.props.toggleFollowInProgress}
+                   followingInProgress={this.props.followingInProgress} />
             </>
         }
 };
@@ -54,9 +57,10 @@ let mapStateToProps = state => ({
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
 });
 
 export default connect(mapStateToProps, 
-    { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching }
+    { follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowInProgress }
 )(UsersAPIComponent);
